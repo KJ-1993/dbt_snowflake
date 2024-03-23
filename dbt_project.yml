@@ -42,3 +42,6 @@ models:
       +materialized: table
     staging:
       +materialized: ephemeral
+
+vars:
+  str_date: current_date()
