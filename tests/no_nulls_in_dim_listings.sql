@@ -1,0 +1,1 @@
+{{ no_nulls_in_columns(ref('int_listings_cleansed')) }}
