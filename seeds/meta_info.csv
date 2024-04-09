@@ -1,0 +1,3 @@
+Table_name,file_path,pattern
+dbt.orders,orders,orders
+dbt.customer,customer,customer
