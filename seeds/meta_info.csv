@@ -1,0 +1,4 @@
+Table_name,file_path,pattern,type
+dbt.orders,orders,orders,csv
+dbt.customer,customer,customer,csv
+dbt.cars,parquet_file,MT,parquet

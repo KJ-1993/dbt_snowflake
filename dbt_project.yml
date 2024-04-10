@@ -44,4 +44,4 @@ models:
       +materialized: ephemeral
 
 vars:
-  str_date: current_date()
+  str_date: ''
