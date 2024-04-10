@@ -1,11 +1,10 @@
 {% macro bulk_copy() %}
 
-
     {% set query %}
 
-select * from dbt.meta_info
+        select * from dbt.meta_info
     
-{% endset %}
+    {% endset %}
 
     {% set results = run_query(query) %}
 
@@ -23,25 +22,32 @@ select * from dbt.meta_info
 
         {% set s3_path=item[1] %}
 
+        {% set type=item[3] %}
+
         {{ log("Executing insert_metadata macro " ~ table ~ ", " ~ s3_path) }}
 
-        {% set copy_cmd %}
-
-            copy into  {{ table }}
-            from @my_s3_stage/{{ s3_path }}
+        {% if type == 'csv' %}
             
-        {% endset %}
 
-        {{ log("Running some_loop: " ~ table ~ ", " ~ s3_path~ ", " ~ copy_cmd) }}
+            {% set copy_cmd %}
 
-        {% if execute %}
-
-            {% set insert_result = run_query(copy_cmd) %}
+                copy into  {{ table }}
+                from @my_s3_stage/{{ s3_path }}
                 
-            {{ log(insert_result, info=true) }}
-        {%else%}
+            {% endset %}
 
-            {{ exceptions.raise_compiler_error("Please check the meta_info results " ) }}
+            {{ log("Running some_loop: " ~ table ~ ", " ~ s3_path~ ", " ~ copy_cmd) }}
+
+            {% if execute %}
+
+                {% set insert_result = run_query(copy_cmd) %}
+                    
+                {{ log(insert_result, info=true) }}
+            {%else%}
+
+                {{ exceptions.raise_compiler_error("Please check the meta_info results " ) }}
+
+            {% endif %}
 
         {% endif %}
 
