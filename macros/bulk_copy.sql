@@ -2,7 +2,9 @@
 
     {% set query %}
 
-        select * from dbt.meta_info
+        with cte as (select * from dbt.meta_info)
+select schema_name||'.'||table_name as table_nm,Table_name as s3_path,type
+from cte
     
     {% endset %}
 
@@ -22,9 +24,9 @@
 
         {% set s3_path=item[1] %}
 
-        {% set type=item[3] %}
+        {% set type=item[2] %}
 
-        {{ log("Executing insert_metadata macro " ~ table ~ ", " ~ s3_path) }}
+        {{ log("Executing insert_metadata macro " ~ table ~ ", " ~ s3_path ~ ", " ~ type) }}
 
         {% if type == 'csv' %}
             
@@ -118,9 +120,26 @@
                             {% set results = run_query(sql_stmt) %}
                         {% else %}
 
-                            {{ log("somwthing went wrong", info=True) }}
+                            {{ log("something went wrong", info=True) }}
                 
                         {% endif %}
+                {%else%}
+
+                      {% set sql_stmt %}
+                        insert into  dbt.store_meta_info_copy_cmd(status,target_table,load_timestamp)
+                        with cte as (SELECT "status" as status
+                            FROM TABLE(RESULT_SCAN('{{ query_id }}')))
+                            select *,'{{ table }}' as target_table,current_timestamp() as load_timestamp from cte  
+                            
+                        {% endset %}
+
+                        {% if execute %}
+                            {% set results = run_query(sql_stmt) %}
+                        {% else %}
+
+                            {{ log("something went wrong", info=True) }}
+                
+                        {% endif %}  
 
                 {% endif %}
 

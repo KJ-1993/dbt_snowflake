@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: stage # this is the source_name
+    schema: stage
+    tables:
+      - name: kla_ecc_matrl_mstr_t179t
+      - name: kla_ecc_matrl_mstr_mara
+      - name: kla_ecc_matrl_mstr_makt
+      - name: kla_ecc_matrl_mstr_t023t
+      - name: kla_ecc_matrl_mstr_t134t
+      - name: kla_ecc_matrl_mstr_marc
+      - name: kla_ecc_matrl_mstr_mbew
+      - name: kla_ecc_loc_mstr_t001k
+      - name: kla_ecc_co_cd_mstr_t001
+      - name: kla_ecc_po_ekko
+      - name: kla_ecc_po_ekkn

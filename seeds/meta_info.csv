@@ -1,4 +1,2 @@
-Table_name,file_path,pattern,type
-dbt.orders,orders,orders,csv
-dbt.customer,customer,customer,csv
-dbt.cars,parquet_file,MT,parquet
+schema_name,Table_name,type
+stage,kla_ecc_cust_mstr_knvv,csv
