@@ -15,3 +15,49 @@ sources:
       - name: kla_ecc_co_cd_mstr_t001
       - name: kla_ecc_po_ekko
       - name: kla_ecc_po_ekkn
+      - name: kla_ecc_po_hist_ekbe
+        columns:
+          - name: source_system
+            tests:
+              - not_null
+          - name: mandt
+            tests:
+              - not_null
+          - name: ebeln
+            tests:
+              - not_null
+          - name: ebelp
+            tests:
+              - not_null
+          - name: zekkn
+            tests:
+              - not_null
+          - name: vgabe
+            tests:
+              - not_null
+          - name: gjahr
+            tests:
+              - not_null
+          - name: belnr
+            tests:
+              - not_null
+          - name: kortex_file_path_nm
+            tests:
+              - not_null
+        tests:
+          - dbt_constraints.primary_key:
+              column_names:
+                - source_system
+                - mandt
+                - ebeln
+                - ebelp
+                - zekkn
+                - vgabe
+                - gjahr
+                - belnr
+                - kortex_file_path_nm
+
+
+                                                   
+             
+            

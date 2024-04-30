@@ -45,3 +45,5 @@ models:
 
 vars:
   str_date: ''
+  from_date: ''
+  to_date: ''

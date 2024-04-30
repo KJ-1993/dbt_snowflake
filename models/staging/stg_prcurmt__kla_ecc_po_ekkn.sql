@@ -3,17 +3,17 @@
         schema = 'stage',
         alias="stg_prcurmt__kla_ecc_po_ekkn",
         tags= ['prcurmt'],
-        transient = False,
         materialized='ephemeral'
     )
 }}
-with renaming_fields as (
+with kla_ecc_po_ekkn as (
     select *
             
             from {{ source('stage', 'kla_ecc_po_ekkn') }}
         
             
-    )
+    ),
+    renaming_field as (
 select EBELN as pur_doc_nbr,
             EBELP as pur_doc_line_nbr,
             ZEKKN as pur_doc_line_acct_asgmt_seq_nbr,
@@ -33,4 +33,5 @@ select EBELN as pur_doc_nbr,
             src_nm,
             kortex_upld_ts,
             kortex_dprct_ts
-             from renaming_fields
+             from kla_ecc_po_ekkn
+    ) select * from renaming_field
